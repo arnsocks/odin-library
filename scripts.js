@@ -1,7 +1,18 @@
-body = document.querySelector("body");
+let body = document.querySelector("body");
 body.style.color = "white";
 
-cardContainer = document.querySelector(".card-container");
+let cardContainer = document.querySelector(".card-container");
+const addButton = document.querySelector(".add-button");
+const dialog = document.querySelector("dialog");
+const closeDialogBtn = document.querySelector("dialog button");
+
+closeDialogBtn.addEventListener("click", () => {
+  dialog.close();
+})
+
+
+
+addButton.addEventListener("click", createBook);
 
 const myLibrary = [];
 
@@ -20,21 +31,36 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(book);
 }
 
+// Generate some starter books for the library
 addBookToLibrary("Leviathan's Wake", "James S. A. Corey", 561, true);
 addBookToLibrary("Seveneves", "Neal Stephenson", 867, true);
 addBookToLibrary("A Thousand Splendid Suns", "Khaled Hosseini", 370, false);
+addBookToLibrary("The Slow Regard of Silent Things", "Patrick Rothfuss", 123, true);
 
-console.table(myLibrary);
+function createBook() {
+  // TO DO
+  // -Get user input for book parameters
+  // -Add that book to the library
+  // -Draw the library
+  
+  dialog.showModal();
+}
 
 function drawLibrary() {
-  // Loop through the Library array and create cards for each book
-  // append each book to the cardContainer
   for(const book of myLibrary) {
-    // create the book div
+  
     let card = document.createElement("div");
     card.className = "card";
 
-    let title = document.createElement("h3");
+    // *** OPTION FOR ITERATING ALL VALUE OF THE BOOK ***
+    // for (let [key, value] of Object.entries(book)) {
+    //   let item = document.createElement("p");
+    //   item.className = key;
+    //   item.textContent = value;
+    //   card.appendChild(item);
+    // }
+
+    let title = document.createElement("p");
     title.className = "title";
     title.textContent = book.title;
 
@@ -48,12 +74,7 @@ function drawLibrary() {
 
     let read = document.createElement("p");
     read.className = "read";
-    read.textContent = book.read;
-
-    // create the title, author, page & read elements
-    // put the content of each book into the correct element
-    // append the elements to the book
-    // append the book tot he cardContainer
+    read.textContent = book.read ? "Read" : "Not Read";
 
     card.appendChild(title);
     card.appendChild(author);

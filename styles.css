@@ -20,7 +20,8 @@
 header {
   padding-left: 5px;
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
   
 }
 
@@ -31,7 +32,7 @@ header::after {
   width: 100vw;
   height: 1rem;
   left: 0;
-  top: 45px;
+  top: 4rem;
 }
 
 #main {
@@ -45,14 +46,47 @@ header::after {
   grid-auto-rows: 1fr;
   gap: 2rem;
   padding: 2rem;
+  position: relative;
 }
 
 .card {
   /* background-color: white; */
-  border: 1px solid white;
+  border: 2px solid white;
   color: white;
   padding: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.card .title {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.add-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6em;
+  font-weight: bold;
+  transition: all 0.1s ease-in;
+}
+
+.add-button:hover {
+  top: -2px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2)
+}
+
+dialog{
+  width: 400px;
+  min-height: 300px;
+  margin: auto;
+}
+
+dialog::backdrop {
+  background-color:rgba(0, 0, 0, 0.4);
 }
 
 footer {
