@@ -22,8 +22,43 @@
       </div>
     </div>
     <dialog id="new-book-dialog">
-      <button autofocus>Close</button>
-      <p>This modal dialog dims the background</p>
+      <form>
+        <fieldset>
+          <legend>Add a new book:</legend>
+
+          <ul>
+            <li>
+              <label for="title">Title:</label>
+              <input type="text" name="title" id="title">
+            </li>
+            <li>
+              <label for="author">Author:</label>
+              <input type="text" name="author" id="author">
+            </li>
+            <li>
+              <label for="pages">Number of pages:</label>
+              <input type="tel" name="pages" id="pages">
+            </li>
+            <li>
+              <fieldset>
+                <legend>Have you read this book?</legend>>
+                <label for="no">No</label>
+                <input type="radio" id="no" name="read" value="false" checked>
+                <label for="yes">Yes</label>
+                <input type="radio" id="yes" name="read" value="true">
+
+              </fieldset>
+              <!-- <label for="read">Read?</label>
+              <input type="checkbox" name="read" id="read" unchecked> -->
+            </li>
+          </ul>
+          <div>
+            <button id= "cancel" value="cancel" formmethod="dialog" autofocus>Cancel</button>
+            <button id="confirmBtn" value="default">Confirm</button>
+          </div>
+        </fieldset>
+        
+      </form>
     </dialog>
     <footer>
       <p>Copyright 2024</p>
