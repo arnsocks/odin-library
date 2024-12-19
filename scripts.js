@@ -1,6 +1,3 @@
-let body = document.querySelector("body");
-body.style.color = "white";
-
 let cardContainer = document.querySelector(".card-container");
 const addButton = document.querySelector(".add-button");
 const newBookDialog = document.querySelector("#new-book-dialog");
@@ -11,10 +8,15 @@ const newBookAuthor = document.querySelector("#author");
 const newBookPages = document.querySelector("#pages");
 const readSelector = document.querySelector("#read-selector");
 let readStatus = "";
+const myLibrary = [];
 
+addButton.addEventListener("click", () => {
+  newBookDialog.showModal();
+});
+
+// Read the value of the radio without having to submit the form
 readSelector.addEventListener("click", (e) => {
   readStatus = e.target.value;
-  alert(`new book status will be ${readStatus}`);
 })
 
 closeDialogBtn.addEventListener("click", () => {
@@ -22,8 +24,7 @@ closeDialogBtn.addEventListener("click", () => {
 })
 
 confirmBtn.addEventListener("click", (event) => {
-  event.preventDefault(); //Do not actually submit the form
-  // alert(`The read value of this book is: ${newBookRead.value}`)
+  event.preventDefault(); // Do not actually submit the form
   
   addBookToLibrary(
     newBookTitle.value,
@@ -36,9 +37,7 @@ confirmBtn.addEventListener("click", (event) => {
   newBookDialog.close();
 });
 
-addButton.addEventListener("click", createBook);
 
-const myLibrary = [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -56,27 +55,10 @@ function addBookToLibrary(title, author, pages, read) {
   drawBook(book);
 }
 
-function createBook() {
-  // TO DO
-  // -Get user input for book parameters
-  // -Add that book to the library
-  // -Draw the library
-  
-  newBookDialog.showModal();
-}
-
 function drawBook(book) {
   // Create a new book "card" based on the data the object
   let card = document.createElement("div");
     card.className = "card";
-
-    // *** OPTION FOR ITERATING ALL VALUE OF THE BOOK ***
-    // for (let [key, value] of Object.entries(book)) {
-    //   let item = document.createElement("p");
-    //   item.className = key;
-    //   item.textContent = value;
-    //   card.appendChild(item);
-    // }
 
     let title = document.createElement("p");
     title.className = "title";
@@ -99,10 +81,18 @@ function drawBook(book) {
     card.appendChild(pages);
     card.appendChild(read);
     cardContainer.appendChild(card);
+    
+    // *** OPTION FOR ITERATING ALL VALUE OF THE BOOK ***
+    // for (let [key, value] of Object.entries(book)) {
+    //   let item = document.createElement("p");
+    //   item.className = key;
+    //   item.textContent = value;
+    //   card.appendChild(item);
+    // }
 }
 
-// Generate some starter books for the library
-addBookToLibrary("Leviathan's Wake", "James S. A. Corey", 561, true);
-addBookToLibrary("Seveneves", "Neal Stephenson", 867, true);
-addBookToLibrary("A Thousand Splendid Suns", "Khaled Hosseini", 370, false);
-addBookToLibrary("The Slow Regard of Silent Things", "Patrick Rothfuss", 123, true);
+// Populate some starter books for the library
+addBookToLibrary("Leviathan's Wake", "James S. A. Corey", 561, "Read");
+addBookToLibrary("Seveneves", "Neal Stephenson", 867, "Read");
+addBookToLibrary("A Thousand Splendid Suns", "Khaled Hosseini", 370, "Not Read");
+addBookToLibrary("The Slow Regard of Silent Things", "Patrick Rothfuss", 123, "Read");
