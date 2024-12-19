@@ -9,7 +9,13 @@ const confirmBtn = document.querySelector("#confirmBtn");
 const newBookTitle = document.querySelector("#title");
 const newBookAuthor = document.querySelector("#author");
 const newBookPages = document.querySelector("#pages");
-const newBookRead = document.querySelector("#read");
+const readSelector = document.querySelector("#read-selector");
+let readStatus = "";
+
+readSelector.addEventListener("click", (e) => {
+  readStatus = e.target.value;
+  alert(`new book status will be ${readStatus}`);
+})
 
 closeDialogBtn.addEventListener("click", () => {
   newBookDialog.close();
@@ -17,15 +23,16 @@ closeDialogBtn.addEventListener("click", () => {
 
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault(); //Do not actually submit the form
-  alert(`The read value of this book is: ${newBookRead.value}`)
+  // alert(`The read value of this book is: ${newBookRead.value}`)
   
   addBookToLibrary(
     newBookTitle.value,
     newBookAuthor.value,
     newBookPages.value,
-    newBookRead.value
+    readStatus
   );
 
+  readStatus = "";
   newBookDialog.close();
 });
 
@@ -85,7 +92,7 @@ function drawBook(book) {
 
     let read = document.createElement("p");
     read.className = "read";
-    read.textContent = book.read ? "Read" : "Not Read";
+    read.textContent = book.read;
 
     card.appendChild(title);
     card.appendChild(author);
