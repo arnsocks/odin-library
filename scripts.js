@@ -47,6 +47,9 @@ function Book(title, author, pages, read) {
   this.info = function() {
     return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
   };
+  this.toggleReadStatus = function() {
+    this.read = (this.read === "Read") ? "Not Read" : "Read";
+  }
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -60,27 +63,35 @@ function drawBook(book) {
   let card = document.createElement("div");
     card.className = "card";
 
-    let title = document.createElement("p");
-    title.className = "title";
-    title.textContent = book.title;
-
-    let author = document.createElement("p");
-    author.className = "author";
-    author.textContent = book.author;
+    card.innerHTML = `
+      <p class='title'>${book.title}</p>
+      <p class='author'>${book.author}</p>
+      <p class='pages'>${book.pages} pages</p>
+      <p class='status'>Status: <span class='read'>${book.read}</span></p>
+    `;
+    // let read = document.createElement("p");
+    // read.className = "read";
+    // read.textContent = `Status: ${book.read}`;
     
-    let pages = document.createElement("p");
-    pages.className = "pages";
-    pages.textContent = `${book.pages} pages`;
+    
 
-    let read = document.createElement("p");
-    read.className = "read";
-    read.textContent = book.read;
-
-    card.appendChild(title);
-    card.appendChild(author);
-    card.appendChild(pages);
-    card.appendChild(read);
+    //let readBtn = document.createElement("button");
+    let read = card.querySelector(".read");
+    //readBtn.textContent = "Update Status";
+    //readBtn.setAttribute("type", "button");
+    read.addEventListener("click", () => {
+      book.toggleReadStatus();
+      read.textContent = book.read;
+    })
+    // card.appendChild(read);
+    // card.appendChild(readBtn);
+    //card.appendChild(read);
     cardContainer.appendChild(card);
+    // readBtn.addEventListener("click", () => {
+    //   alert(`You are trying to change the status of ${book.title}!`);
+    //   book.toggleReadStatus();
+    //   read.textContent = book.read;
+    // })
     
     // *** OPTION FOR ITERATING ALL VALUE OF THE BOOK ***
     // for (let [key, value] of Object.entries(book)) {

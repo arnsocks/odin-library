@@ -23,9 +23,7 @@
     </div>
     <dialog id="new-book-dialog">
       <form>
-        <fieldset>
-          <legend>Add a new book:</legend>
-
+          <h4>Add a new book:</h4>
           <ul>
             <li>
               <label for="title">Title:</label>
@@ -41,25 +39,21 @@
             </li>
             <li>
               <fieldset id="read-selector">
-                <legend>Have you read this book?</legend>>
+                <legend>Have you read this book?</legend>
                 <label for="read">Read</label>
                 <input type="radio" id="read" name="read" value="Read">
                 <label for="not-read">Not Read</label>
                 <input type="radio" id="not-read" name="read" value="Not Read">
-                <label for="in-progress">In Progress</label>
-                <input type="radio" id="in-progress" name="read" value="In Progress">
+                <!-- <label for="in-progress">In Progress</label>
+                <input type="radio" id="in-progress" name="read" value="In Progress"> -->
 
               </fieldset>
-
-              <!-- <label for="read">Read?</label>
-              <input type="checkbox" name="read" id="read" unchecked> -->
             </li>
           </ul>
           <div>
             <button id= "cancel" value="cancel" formmethod="dialog" autofocus>Cancel</button>
             <button id="confirmBtn" value="default">Confirm</button>
           </div>
-        </fieldset>
         
       </form>
     </dialog>
