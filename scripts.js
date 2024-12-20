@@ -1,5 +1,5 @@
 let cardContainer = document.querySelector(".card-container");
-const addButton = document.querySelector(".add-button");
+const newBookBtn = document.querySelector(".add-button");
 const newBookDialog = document.querySelector("#new-book-dialog");
 const closeDialogBtn = document.querySelector("dialog button");
 const confirmBtn = document.querySelector("#confirmBtn");
@@ -8,16 +8,12 @@ const newBookAuthor = document.querySelector("#author");
 const newBookPages = document.querySelector("#pages");
 const readSelector = document.querySelector("#read-selector");
 let readStatus = "";
+
 const myLibrary = [];
 
-addButton.addEventListener("click", () => {
+newBookBtn.addEventListener("click", () => {
   newBookDialog.showModal();
 });
-
-// Read the value of the radio without having to submit the form
-readSelector.addEventListener("click", (e) => {
-  readStatus = e.target.value;
-})
 
 closeDialogBtn.addEventListener("click", () => {
   newBookDialog.close();
@@ -37,23 +33,27 @@ confirmBtn.addEventListener("click", (event) => {
   newBookDialog.close();
 });
 
+// Read the value of the radio without having to submit the form
+readSelector.addEventListener("click", (e) => {
+  readStatus = e.target.value;
+})
 
-
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, library) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.index = library.length;
   this.info = function() {
     return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
   };
   this.toggleReadStatus = function() {
-    this.read = (this.read === "Read") ? "Not Read" : "Read";
+    this.read = this.read === "Read" ? "Not Read" : "Read";
   }
 }
 
 function addBookToLibrary(title, author, pages, read) {
-  const book = new Book(title, author, pages, read);
+  const book = new Book(title, author, pages, read, myLibrary);
   myLibrary.push(book);
   drawBook(book);
 }
@@ -61,49 +61,36 @@ function addBookToLibrary(title, author, pages, read) {
 function drawBook(book) {
   // Create a new book "card" based on the data the object
   let card = document.createElement("div");
-    card.className = "card";
+  card.className = "card";
+  card.innerHTML = `
+    <p class='title'>${book.title}</p>
+    <p class='author'>${book.author}</p>
+    <p class='pages'>${book.pages} pages</p>
+    <p class='status'>Status: <span class='read'>${book.read}</span></p>
+    <button class='delete-button' type='button'>Delete</button>
+  `;
 
-    card.innerHTML = `
-      <p class='title'>${book.title}</p>
-      <p class='author'>${book.author}</p>
-      <p class='pages'>${book.pages} pages</p>
-      <p class='status'>Status: <span class='read'>${book.read}</span></p>
-    `;
-    // let read = document.createElement("p");
-    // read.className = "read";
-    // read.textContent = `Status: ${book.read}`;
-    
-    
+  // Allow user to change the read status
+  let read = card.querySelector(".read");
+  read.addEventListener("click", () => {
+    book.toggleReadStatus();
+    read.textContent = book.read;
+  })
 
-    //let readBtn = document.createElement("button");
-    let read = card.querySelector(".read");
-    //readBtn.textContent = "Update Status";
-    //readBtn.setAttribute("type", "button");
-    read.addEventListener("click", () => {
-      book.toggleReadStatus();
-      read.textContent = book.read;
-    })
-    // card.appendChild(read);
-    // card.appendChild(readBtn);
-    //card.appendChild(read);
-    cardContainer.appendChild(card);
-    // readBtn.addEventListener("click", () => {
-    //   alert(`You are trying to change the status of ${book.title}!`);
-    //   book.toggleReadStatus();
-    //   read.textContent = book.read;
-    // })
-    
-    // *** OPTION FOR ITERATING ALL VALUE OF THE BOOK ***
-    // for (let [key, value] of Object.entries(book)) {
-    //   let item = document.createElement("p");
-    //   item.className = key;
-    //   item.textContent = value;
-    //   card.appendChild(item);
-    // }
+  // Allow user to delete books
+  let deleteBtn = card.querySelector(".delete-button");
+  deleteBtn.addEventListener("click",  ()=> {
+     if (confirm (`Are you sure you want to delete ${book.title}?`)) {
+      delete myLibrary[book.index];
+      cardContainer.removeChild(card);
+     }
+  })
+
+  cardContainer.appendChild(card);
 }
 
 // Populate some starter books for the library
-addBookToLibrary("Leviathan's Wake", "James S. A. Corey", 561, "Read");
-addBookToLibrary("Seveneves", "Neal Stephenson", 867, "Read");
-addBookToLibrary("A Thousand Splendid Suns", "Khaled Hosseini", 370, "Not Read");
-addBookToLibrary("The Slow Regard of Silent Things", "Patrick Rothfuss", 123, "Read");
+addBookToLibrary("Leviathan's Wake", "James S. A. Corey", "561", "Read");
+addBookToLibrary("Seveneves", "Neal Stephenson", "867", "Read");
+addBookToLibrary("A Thousand Splendid Suns", "Khaled Hosseini", "370", "Not Read");
+addBookToLibrary("The Slow Regard of Silent Things", "Patrick Rothfuss", "123", "Read");
