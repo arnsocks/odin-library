@@ -29,7 +29,12 @@ confirmBtn.addEventListener("click", (event) => {
     readStatus
   );
 
+  // Reset the values of the inputs so they're blank for the next book
+  newBookTitle.value = "";
+  newBookAuthor.value = "";
+  newBookPages.value = "";
   readStatus = "";
+
   newBookDialog.close();
 });
 
@@ -38,12 +43,12 @@ readSelector.addEventListener("click", (e) => {
   readStatus = e.target.value;
 })
 
-function Book(title, author, pages, read, library) {
+function Book(title, author, pages, read, index) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.index = library.length;
+  this.index = index;
   this.info = function() {
     return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
   };
@@ -53,7 +58,7 @@ function Book(title, author, pages, read, library) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
-  const book = new Book(title, author, pages, read, myLibrary);
+  const book = new Book(title, author, pages, read, myLibrary.length);
   myLibrary.push(book);
   drawBook(book);
 }
