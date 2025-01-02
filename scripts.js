@@ -33,7 +33,7 @@ confirmBtn.addEventListener("click", (event) => {
   newBookTitle.value = "";
   newBookAuthor.value = "";
   newBookPages.value = "";
-  readStatus = "";
+  // readStatus = "";
 
   newBookDialog.close();
 });

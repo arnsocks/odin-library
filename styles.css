@@ -146,6 +146,18 @@ dialog button:focus {
 
 }
 
+dialog fieldset {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+}
+
+fieldset input[type="radio"],
+fieldset label {
+  height: 30px;
+  width: auto;
+}
+
 footer {
   background-color: white;
   color: var(--orange);
@@ -157,10 +169,6 @@ footer {
   text-decoration: underline;
   cursor: pointer;
 }
-
-/* .read:hover {
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2)
-} */
 
 .read:after {
   content: " ✎";
