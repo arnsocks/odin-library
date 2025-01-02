@@ -33,7 +33,8 @@ confirmBtn.addEventListener("click", (event) => {
   newBookTitle.value = "";
   newBookAuthor.value = "";
   newBookPages.value = "";
-  // readStatus = "";
+  readStatus = "";
+  resetReadSelector();
 
   newBookDialog.close();
 });
@@ -42,6 +43,13 @@ confirmBtn.addEventListener("click", (event) => {
 readSelector.addEventListener("click", (e) => {
   readStatus = e.target.value;
 })
+
+function resetReadSelector() {
+  let radios = readSelector.querySelectorAll("input");
+  for (let i = 0; i< radios.length; i++) {
+    radios[i].checked = false;
+  }
+};
 
 function Book(title, author, pages, read, index) {
   this.title = title;
