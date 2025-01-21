@@ -51,19 +51,37 @@ function resetReadSelector() {
   }
 };
 
-function Book(title, author, pages, read, index) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.index = index;
-  this.info = function() {
+class Book {
+
+  constructor(title, author, pages, read, index) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.index = index;
+  }
+
+  get info() {
     return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
-  };
-  this.toggleReadStatus = function() {
+  }
+
+  toggleReadStatus() {
     this.read = this.read === "Read" ? "Not Read" : "Read";
   }
 }
+// function Book(title, author, pages, read, index) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+//   this.index = index;
+//   this.info = function() {
+//     return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
+//   };
+//   this.toggleReadStatus = function() {
+//     this.read = this.read === "Read" ? "Not Read" : "Read";
+//   }
+// }
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read, myLibrary.length);
@@ -101,6 +119,7 @@ function drawBook(book) {
 
   cardContainer.appendChild(card);
 }
+
 
 // Populate some starter books for the library
 addBookToLibrary("Leviathan's Wake", "James S. A. Corey", "561", "Read");
