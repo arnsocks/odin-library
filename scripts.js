@@ -48,12 +48,12 @@ const ScreenController = (() => {
   // const confirmBtn = document.querySelector("#confirmBtn");
   const newBookTitle = document.querySelector("#title");
   const titleError = document.querySelector("#title + span.error");
-
   const newBookAuthor = document.querySelector("#author");
   const authorError = document.querySelector("#author + span.error");
-
   const newBookPages = document.querySelector("#pages");
   const readSelector = document.querySelector("#read-selector");
+  const readRadio = document.getElementById("read");
+  const statusError = document.querySelector("#read-selector + span.error");
   let readStatus = "";
 
   let library = new Library();
@@ -84,7 +84,11 @@ const ScreenController = (() => {
 
   newBookForm.addEventListener("submit", (e) => {
     e.preventDefault(); // We're never actually submitting this form
-    if (!newBookTitle.validity.valid || !newBookAuthor.validity.valid) {
+    if (
+      !newBookTitle.validity.valid ||
+      !newBookAuthor.validity.valid ||
+      !readRadio.validity.valid
+    ) {
       showError();
     } else confirmBtnClick();
   });
@@ -115,6 +119,10 @@ const ScreenController = (() => {
 
   readSelector.addEventListener("click", (e) => {
     readStatus = e.target.value;
+    if (readRadio.validity.valid) {
+      statusError.textContent = "";
+      statusError.className = "error";
+    } else showError();
   });
 
   // ** METHODS **
@@ -175,12 +183,16 @@ const ScreenController = (() => {
   function showError() {
     if (newBookTitle.validity.valueMissing) {
       titleError.textContent = "You must supply a book title";
+      titleError.className = "error active";
     }
     if (newBookAuthor.validity.valueMissing) {
       authorError.textContent = "You must supply an Author";
+      authorError.className = "error active";
     }
-    titleError.className = "error active";
-    authorError.className = "error active";
+    if (readRadio.validity.valueMissing) {
+      statusError.textContent = "You must set a read status";
+      statusError.className = "error active";
+    }
   }
 
   // Populate some starter books for the library
