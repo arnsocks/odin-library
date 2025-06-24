@@ -1,64 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Odin Library</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="scripts.js" defer></script>
-  
-</head>
-<body>
-  <div id="wrapper">
-    <header>
-      <h1>Compendium of Literary Matter</h1>
-    </header>
-    <div id="main">
-      <div class="card add-button">
-        <h3>Add a Book</h3>
-        <p>＋</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Odin Library</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <header>
+        <h1>Compendium of Literary Matter</h1>
+      </header>
+
+      <div id="main">
+        <div class="card add-button">
+          <h3>Add a Book</h3>
+          <p>＋</p>
+        </div>
+        <div class="card-container"></div>
       </div>
-      <div class="card-container">
-        
-      </div>
-    </div>
-    <dialog id="new-book-dialog">
-      <form>
+
+      <dialog id="new-book-dialog">
+        <form id="new-book-form" novalidate>
           <h4>Add a new book:</h4>
           <ul>
             <li>
               <label for="title">Title:</label>
-              <input type="text" name="title" id="title">
+              <input type="text" name="title" id="title" required />
+              <span class="error" aria-live="polite"></span>
             </li>
             <li>
               <label for="author">Author:</label>
-              <input type="text" name="author" id="author">
+              <input type="text" name="author" id="author" required />
+              <span class="error" aria-live="polite"></span>
             </li>
             <li>
               <label for="pages">Number of pages:</label>
-              <input type="tel" name="pages" id="pages">
+              <input type="tel" name="pages" id="pages" />
+              <span class="error" aria-live="polite"></span>
             </li>
             <li>
               <fieldset id="read-selector">
                 <legend>Have you read this book?</legend>
                 <label for="read">Read</label>
-                <input type="radio" id="read" name="read" value="Read">
+                <input
+                  type="radio"
+                  id="read"
+                  name="read"
+                  value="Read"
+                  required
+                />
                 <label for="not-read">Not Read</label>
-                <input type="radio" id="not-read" name="read" value="Not Read">
+                <input
+                  type="radio"
+                  id="not-read"
+                  name="read"
+                  value="Not Read"
+                />
+                <span class="error" aria-live="polite"></span>
               </fieldset>
             </li>
           </ul>
           <div>
-            <button id= "cancel" value="cancel" formmethod="dialog" >Cancel</button>
-            <button id="confirmBtn" value="default">Confirm</button>
+            <button id="cancel" value="cancel" formmethod="dialog">
+              Cancel
+            </button>
+            <!-- <button id="confirmBtn" value="default">Confirm</button> -->
+            <button id="confirmBtn">Confirm</button>
           </div>
-        
-      </form>
-    </dialog>
-    <footer>
-      <p>Copyright 2024</p>
-    </footer>
-  </div>
-  
-</body>
+        </form>
+      </dialog>
+
+      <footer>
+        <p>Copyright 2024</p>
+      </footer>
+    </div>
+  </body>
 </html>

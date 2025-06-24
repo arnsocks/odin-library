@@ -10,7 +10,7 @@
 }
 
 #wrapper {
-  min-height:100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: var(--orange);
@@ -22,7 +22,6 @@ header {
   position: relative;
   margin-bottom: 1rem;
   font-size: 2rem;
-  
 }
 
 header::after {
@@ -30,14 +29,13 @@ header::after {
   background-color: white;
   position: absolute;
   width: 100vw;
-  height: .8rem;
+  height: 0.8rem;
   left: 0;
   top: 4.2rem;
 }
 
 #main {
   flex: 1;
-  
 }
 
 .card-container {
@@ -54,7 +52,7 @@ header::after {
   border: 2px solid white;
   color: white;
   padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -68,17 +66,16 @@ header::after {
 
 .card button {
   padding: 5px;
-  
+
   align-self: flex-end;
   font-size: 100%;
   margin-top: auto;
-  position:relative;
+  position: relative;
 
   background-color: var(--orange);
   color: white;
   border: 1px solid white;
 }
-
 
 .card button:hover,
 .add-button:hover {
@@ -101,7 +98,7 @@ header::after {
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 } */
 
-dialog{
+dialog {
   width: 400px;
   min-height: 300px;
   margin: auto;
@@ -110,7 +107,7 @@ dialog{
 }
 
 dialog::backdrop {
-  background-color:rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 dialog form {
@@ -123,12 +120,13 @@ dialog ul {
   list-style: none;
 }
 
-dialog label, input {
+dialog label,
+input {
   display: block;
   font-family: inherit;
   font-size: 100%;
   width: 100%;
-  padding:5px;
+  padding: 5px;
   height: 30px;
 }
 
@@ -142,8 +140,7 @@ dialog button {
 dialog button:hover,
 dialog button:focus {
   background-color: var(--orange);
-  color:white;
-
+  color: white;
 }
 
 dialog fieldset {
@@ -156,6 +153,26 @@ fieldset input[type="radio"],
 fieldset label {
   height: 30px;
   width: auto;
+}
+
+input:invalid {
+  border: 1px solid #900;
+  background-color: #fdd;
+}
+
+.error {
+  width: 100%;
+  padding: 0;
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.error.active {
+  padding: 0.3em;
 }
 
 footer {

@@ -1,5 +1,5 @@
 class Book {
-  index = '';
+  index = "";
 
   constructor(title, author, pages, read) {
     this.title = title;
@@ -9,7 +9,7 @@ class Book {
   }
 
   get info() {
-    return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
   }
 
   set index(i) {
@@ -43,19 +43,23 @@ const ScreenController = (() => {
   const newBookBtn = document.querySelector(".add-button");
   const newBookDialog = document.querySelector("#new-book-dialog");
   const closeDialogBtn = document.querySelector("dialog button");
-  const confirmBtn = document.querySelector("#confirmBtn");
+  const newBookForm = document.getElementById("new-book-form");
+
+  // const confirmBtn = document.querySelector("#confirmBtn");
   const newBookTitle = document.querySelector("#title");
+  const titleError = document.querySelector("#title + span.error");
+
   const newBookAuthor = document.querySelector("#author");
+  const authorError = document.querySelector("#author + span.error");
+
   const newBookPages = document.querySelector("#pages");
   const readSelector = document.querySelector("#read-selector");
-  let readStatus = '';
+  let readStatus = "";
 
   let library = new Library();
 
   // ** EVENT LISTENER FUNCTIONS
-  function confirmBtnClick(event) {
-    event.preventDefault(); // Do not actually submit the form
-    
+  function confirmBtnClick() {
     let newBook = new Book(
       newBookTitle.value,
       newBookAuthor.value,
@@ -63,33 +67,55 @@ const ScreenController = (() => {
       readStatus
     );
     library.add(newBook);
-    
+
     // Reset the values of the inputs so they're blank for the next book
     newBookTitle.value = "";
     newBookAuthor.value = "";
     newBookPages.value = "";
     readStatus = "";
     resetReadSelector();
-  
+
     newBookDialog.close();
-    
+
     updateScreen();
-  };
+  }
 
   // ** EVENT LISTENERS **
 
-  confirmBtn.addEventListener("click", confirmBtnClick);
+  newBookForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // We're never actually submitting this form
+    if (!newBookTitle.validity.valid || !newBookAuthor.validity.valid) {
+      showError();
+    } else confirmBtnClick();
+  });
+
+  newBookTitle.addEventListener("input", () => {
+    if (newBookTitle.validity.valid) {
+      titleError.textContent = "";
+      titleError.className = "error";
+    } else {
+      showError();
+    }
+  });
+
+  newBookAuthor.addEventListener("input", () => {
+    if (newBookAuthor.validity.valid) {
+      authorError.textContent = "";
+      authorError.className = "error";
+    } else showError();
+  });
+
   newBookBtn.addEventListener("click", () => {
     newBookDialog.showModal();
   });
-  
+
   closeDialogBtn.addEventListener("click", () => {
     newBookDialog.close();
-  })
+  });
 
   readSelector.addEventListener("click", (e) => {
     readStatus = e.target.value;
-  })
+  });
 
   // ** METHODS **
 
@@ -110,16 +136,16 @@ const ScreenController = (() => {
     read.addEventListener("click", () => {
       book.toggleReadStatus();
       updateScreen();
-    })
+    });
 
     // Allow user to delete books
     let deleteBtn = card.querySelector(".delete-button");
-    deleteBtn.addEventListener("click",  ()=> {
-      if (confirm (`Are you sure you want to delete ${book.title}?`)) {
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Are you sure you want to delete ${book.title}?`)) {
         library.remove(book.index);
         updateScreen();
       }
-    })
+    });
     cardContainer.appendChild(card);
   }
 
@@ -127,7 +153,7 @@ const ScreenController = (() => {
     books = library.books;
 
     // Clear the existing list of books
-    cardContainer.textContent = '';
+    cardContainer.textContent = "";
 
     // Put the new Book Button back
     cardContainer.appendChild(newBookBtn);
@@ -141,17 +167,37 @@ const ScreenController = (() => {
 
   function resetReadSelector() {
     let radios = readSelector.querySelectorAll("input");
-    for (let i = 0; i< radios.length; i++) {
+    for (let i = 0; i < radios.length; i++) {
       radios[i].checked = false;
     }
-  };
+  }
+
+  function showError() {
+    if (newBookTitle.validity.valueMissing) {
+      titleError.textContent = "You must supply a book title";
+    }
+    if (newBookAuthor.validity.valueMissing) {
+      authorError.textContent = "You must supply an Author";
+    }
+    titleError.className = "error active";
+    authorError.className = "error active";
+  }
 
   // Populate some starter books for the library
   library.add(new Book("Leviathan's Wake", "James S. A. Corey", "561", "Read"));
   library.add(new Book("Seveneves", "Neal Stephenson", "867", "Read"));
-  library.add(new Book("A Thousand Splendid Suns", "Khaled Hosseini", "370", "Not Read"));
-  library.add(new Book("The Slow Regard of Silent Things", "Patrick Rothfuss", "123", "Read"));
+  library.add(
+    new Book("A Thousand Splendid Suns", "Khaled Hosseini", "370", "Not Read")
+  );
+  library.add(
+    new Book(
+      "The Slow Regard of Silent Things",
+      "Patrick Rothfuss",
+      "123",
+      "Read"
+    )
+  );
 
+  // Initial page load
   updateScreen();
-
 })();
